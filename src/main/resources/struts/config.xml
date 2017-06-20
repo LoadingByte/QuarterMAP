@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="config" namespace="/config" extends="default">
+        <!-- Secured package -->
+        <default-interceptor-ref name="secureStack" />
+
+        <default-action-ref name="index" />
+
+        <!-- /index: Display all config options -->
+        <action name="index" class="com.quartercode.quartermap.action.config.IndexAction">
+            <result>/WEB-INF/config/index.jsp</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- /artifactrepoAdd: Add a new artifact repository -->
+        <action name="artifactrepoAdd" class="com.quartercode.quartermap.action.config.ArtifactRepositoryAddAction">
+            <result type="redirectAction">artifactrepoEdit_input?repositoryId=%{repositoryId}</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- /artifactrepoRemove: Remove an existing artifact repository -->
+        <action name="artifactrepo"
+            class="com.quartercode.quartermap.action.config.ArtifactRepositoryRemoveAction">
+            <result type="redirectAction">index</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- /artifactrepoEdit: Configure an existing artifact repository -->
+        <action name="artifactrepoEdit_*" class="com.quartercode.quartermap.action.config.ArtifactRepositoryEditAction"
+            method="{1}">
+            <result type="redirectAction">index</result>
+            <result name="input">/WEB-INF/config/artifactrepoEdit.jsp</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+    </package>
+</struts>

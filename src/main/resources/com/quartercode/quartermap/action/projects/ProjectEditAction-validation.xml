@@ -1,0 +1,39 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+    "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+    <field name="project.name">
+        <field-validator type="requiredstring">
+            <message>Project name is required</message>
+        </field-validator>
+    </field>
+
+    <field name="project.configuration.artifact.groupId">
+        <field-validator type="requiredstring">
+            <message>Group ID is required</message>
+        </field-validator>
+    </field>
+
+    <field name="project.configuration.artifact.artifactId">
+        <field-validator type="requiredstring">
+            <message>Artifact ID is required</message>
+        </field-validator>
+    </field>
+
+    <field name="newSourceRepository">
+        <field-validator type="requiredstring">
+            <message>Source Repository is required</message>
+        </field-validator>
+    </field>
+
+    <field name="newJenkinsJob">
+        <field-validator type="requiredstring">
+            <message>Jenkins Job is required</message>
+        </field-validator>
+    </field>
+
+    <field name="newSonarJob">
+        <field-validator type="requiredstring">
+            <message>Sonar Job is required</message>
+        </field-validator>
+    </field>
+</validators>

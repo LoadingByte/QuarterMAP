@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="projects-api" namespace="/api/projects" extends="json-default">
+        <default-action-ref name="list" />
+
+        <global-results>
+            <result name="success" type="json">
+                <param name="excludeProperties">error</param>
+            </result>
+            <result name="error" type="json">
+                <param name="includeProperties">error</param>
+            </result>
+        </global-results>
+
+        <!-- /list: List existing projects -->
+        <action name="list" class="com.quartercode.quartermap.api.projects.ProjectListAPI">
+            <result type="json">
+                <param name="root">projects</param>
+            </result>
+        </action>
+
+        <!-- /artifactList: Show a list of all artifacts of a project -->
+        <action name="artifactList" class="com.quartercode.quartermap.api.projects.ProjectArtifactListAPI">
+            <result type="json">
+                <param name="includeProperties">
+                    artifactId,
+                    stable,stable.build,stable.version,
+                    latest,latest.build,latest.version,
+                    artifacts,artifacts\[\d+\]\.version,artifacts\[\d+\]\.build
+                </param>
+            </result>
+        </action>
+
+        <!-- /artifact: Show details about an artifact including a download URL -->
+        <action name="artifact" class="com.quartercode.quartermap.api.projects.ProjectArtifactAPI">
+            <result type="json">
+                <param name="root">artifact</param>
+            </result>
+        </action>
+    </package>
+</struts>

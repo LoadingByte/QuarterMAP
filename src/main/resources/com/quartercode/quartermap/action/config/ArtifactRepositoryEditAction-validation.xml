@@ -1,0 +1,21 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.3//EN"
+    "http://struts.apache.org/dtds/xwork-validator-1.0.3.dtd">
+<validators>
+    <field name="repository.name">
+        <field-validator type="requiredstring">
+            <message>Repository name is required</message>
+        </field-validator>
+    </field>
+
+    <field name="newLocation">
+        <field-validator type="requiredstring">
+            <message>Repository location is required</message>
+        </field-validator>
+    </field>
+
+    <field name="cacheParser">
+        <field-validator type="required">
+            <message>Cache parser is required</message>
+        </field-validator>
+    </field>
+</validators>

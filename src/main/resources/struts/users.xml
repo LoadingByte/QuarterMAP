@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="users" namespace="/users" extends="default">
+        <!-- Secured package -->
+        <default-interceptor-ref name="secureStack" />
+
+        <default-action-ref name="list" />
+
+        <!-- /list: List existing users -->
+        <action name="list" class="com.quartercode.quartermap.action.users.UserListAction">
+            <result>/WEB-INF/users/list.jsp</result>
+        </action>
+
+        <!-- /add: Add a new user -->
+        <action name="add" class="com.quartercode.quartermap.action.users.UserAddAction">
+            <result type="redirectAction">edit_input?userId=%{userId}</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- /remove: Remove an existing user -->
+        <action name="remove" class="com.quartercode.quartermap.action.users.UserRemoveAction">
+            <result type="redirectAction">list</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- /edit: Configure an existing user -->
+        <action name="edit_*" class="com.quartercode.quartermap.action.users.UserEditAction"
+            method="{1}">
+            <result type="redirectAction">list</result>
+            <result name="input">/WEB-INF/users/edit.jsp</result>
+        </action>
+
+        <!-- /changePassword: Change password of an existing user -->
+        <action name="changePassword_*" class="com.quartercode.quartermap.action.users.UserChangePasswordAction"
+            method="{1}">
+            <result type="redirectAction">list</result>
+            <result name="input">/WEB-INF/users/changePassword.jsp</result>
+        </action>
+    </package>
+</struts>

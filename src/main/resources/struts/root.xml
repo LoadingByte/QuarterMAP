@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="root" namespace="/" extends="default">
+        <default-action-ref name="index" />
+
+        <!-- /index: Home -->
+        <action name="index">
+            <result>/WEB-INF/root/index.jsp</result>
+        </action>
+
+        <!-- /setup: Basic setup (adding default user etc.) -->
+        <action name="setup" class="com.quartercode.quartermap.action.root.SetupAction">
+            <result>/WEB-INF/root/setupSuccess.jsp</result>
+        </action>
+
+        <!-- /login: Login form and validation -->
+        <action name="login_*" class="com.quartercode.quartermap.action.root.LoginAction"
+            method="{1}">
+            <result type="redirectAction">
+                <param name="actionName">${nextAction}</param>
+                <param name="namespace">${nextNamespace}</param>
+            </result>
+            <result name="input">/WEB-INF/root/login.jsp</result>
+        </action>
+
+        <!-- /logout: Logout action -->
+        <action name="logout" class="com.quartercode.quartermap.action.root.LogoutAction">
+            <result type="redirectAction">index</result>
+        </action>
+    </package>
+</struts> 

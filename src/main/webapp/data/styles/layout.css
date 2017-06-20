@@ -1,0 +1,52 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#container {
+    width: 60%;
+    margin: 0 auto;
+}
+
+#header {
+    padding: 0.75em;
+}
+
+#navigation {
+    height: 1.75em;
+    font-size: 1.25em;
+}
+
+#navigation ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#navigation a {
+    float: left;
+    height: 1.75em;
+    line-height: 1.75em;
+}
+
+#content {
+    float: left;
+    padding: 1em;
+    min-height: 20em;
+    width: 100%;
+}
+
+/* Helper classes for pages with sidebars */
+#content div.center {
+    float: left;
+}
+
+#content div.sidebar {
+    float: right;
+    padding: 1em;
+}
+
+#footer {
+    clear: both;
+    padding: 1em;
+}

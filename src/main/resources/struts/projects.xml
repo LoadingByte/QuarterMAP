@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="projects" namespace="/projects" extends="default">
+        <default-action-ref name="list" />
+
+        <global-results>
+            <!-- "Please wait" page while fetching new repository cache -->
+            <result name="fetch">/WEB-INF/projects/fetching.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <!-- Map action cancelling exceptions -->
+            <exception-mapping result="fetch"
+                exception="com.quartercode.quartermap.exception.CancelWithFetchException" />
+        </global-exception-mappings>
+
+        <!-- /list: List existing projects -->
+        <action name="list" class="com.quartercode.quartermap.action.projects.ProjectListAction">
+            <result>/WEB-INF/projects/list.jsp</result>
+        </action>
+
+        <!-- /details: Show details about a project -->
+        <action name="details" class="com.quartercode.quartermap.action.projects.ProjectDetailsAction">
+            <result>/WEB-INF/projects/details.jsp</result>
+        </action>
+
+        <!-- /artifactList: Show a filtered list of all artifacts of a project -->
+        <action name="artifactList" class="com.quartercode.quartermap.action.projects.ProjectArtifactListAction">
+            <result>/WEB-INF/projects/artifactList.jsp</result>
+        </action>
+
+        <!-- /artifact: Show details about an artifact an offer a download link -->
+        <action name="artifact" class="com.quartercode.quartermap.action.projects.ProjectArtifactAction">
+            <result>/WEB-INF/projects/artifact.jsp</result>
+        </action>
+
+        <!-- /add: Add a new project -->
+        <action name="add" class="com.quartercode.quartermap.action.projects.ProjectAddAction">
+            <result type="redirectAction">edit_input?projectId=%{projectId}</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- /remove: Remove an existing project -->
+        <action name="remove" class="com.quartercode.quartermap.action.projects.ProjectRemoveAction">
+            <result type="redirectAction">list</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+
+        <!-- /edit: Configure an existing project -->
+        <action name="edit_*" class="com.quartercode.quartermap.action.projects.ProjectEditAction"
+            method="{1}">
+            <result type="redirectAction">list</result>
+            <result name="input">/WEB-INF/projects/edit.jsp</result>
+            <interceptor-ref name="secureStack">
+                <param name="login.role">ADMIN</param>
+            </interceptor-ref>
+        </action>
+    </package>
+</struts>

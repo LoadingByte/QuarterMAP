@@ -1,0 +1,200 @@
+/*
+ * Whole body
+ */
+body {
+    font-family: sans-serif;
+    background-color: #222222;
+}
+
+.highlighted {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+/*
+ * Header area
+ */
+#header {
+    text-align: center;
+    font-family: monospace;
+    font-size: 3.5em;
+    color: #eeeeee;
+    background-color: #222222;
+}
+
+/*
+ * Navigation area
+ */
+#navigation {
+    background-color: #222222;
+}
+
+#navigation ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#navigation a {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+    text-decoration: none;
+    color: #ffffff;
+    transition: color 0.2s ease-in-out, background-color 0.1s ease-in-out;
+}
+
+#navigation a:hover {
+    color: #444444;
+    background-color: #ffffff;
+}
+
+/*
+ * Content area
+ */
+#content {
+    color: #444444;
+    background-color: #ffffff;
+}
+
+#content h1 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    font-size: 2em;
+    border-bottom: 0.25em solid #444444; /* Underline */
+}
+
+#content a {
+    color: #336622;
+    transition: color 0.1s ease-in-out;
+}
+
+#content a:hover {
+    color: #558800;
+}
+
+#content input[type="text"],input[type="password"] {
+    width: 100%;
+}
+
+#content select {
+    width: 107%;
+}
+
+#content input,select {
+    padding: 0.5em;
+    border: 0.2em solid #dddddd;
+    border-radius: 1em;
+    background-color: #fafafa;
+    transition: border-color 0.25s ease-in-out, background-color 0.25s ease-in-out;
+}
+
+#content input[type="submit"] {
+    font-size: 0.8em;
+}
+
+#content input:hover,select:hover {
+    border-color: #ffaaaa;
+}
+
+#content input:focus,select:focus {
+    border-color: #ffaaaa;
+    background-color: #ffffff;
+}
+
+#content label {
+    text-align: right;
+    font-style: normal;
+}
+
+#content label.errorLabel,label.checkboxErrorLabel,span.errorMessage {
+    color: #ee0000;
+}
+
+#content th,td {
+    padding: 0.3em;
+}
+
+#content div.sidebar {
+    max-width: 25%;
+    border: hidden;
+    border-radius: 0.5em;
+    background-color: #eeeeee;
+    box-shadow: 0 0 0.5em #333333;
+}
+
+/* Boxlinks */
+#content a.boxlink {
+    text-decoration: none;
+    display: inline-block;
+    padding: 1em;
+    border: hidden;
+    border-radius: 1em;
+    color: #444444; /* Reset link style */
+    background-color: #dddddd;
+    transition: background-color 0.25s ease-in-out;
+}
+
+#content a.boxlink:hover {
+    background-color: #cccccc;
+}
+
+#content a.boxlink.green {
+    background-color: #aaffaa;
+}
+
+#content a.boxlink.green:hover {
+    background-color: #66ff66;
+}
+
+#content a.boxlink.red {
+    background-color: #ffbbbb;
+}
+
+#content a.boxlink.red:hover {
+    background-color: #ff9999;
+}
+
+#content div.sidebar a.boxlink {
+    display: block;
+    background-color: #cccccc;
+}
+
+#content div.sidebar a.boxlink:hover {
+    background-color: #bbbbbb;
+}
+
+#content div.sidebar a.boxlink.green {
+    background-color: #aaffaa;
+}
+
+#content div.sidebar a.boxlink.green:hover {
+    background-color: #66ff66;
+}
+
+#content div.sidebar a.boxlink.red {
+    background-color: #ffbbbb;
+}
+
+#content div.sidebar a.boxlink.red:hover {
+    background-color: #ff9999;
+}
+
+/*
+ * Footer area
+ */
+#footer {
+    text-align: center;
+    font-family: monospace;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #222222;
+}
+
+#footer a {
+    color: #ffffff;
+    transition: color 0.1s ease-in-out;
+}
+
+#footer a:hover {
+    color: #bbbbbb;
+}

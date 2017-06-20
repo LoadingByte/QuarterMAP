@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.action.extension" value="," />
+    <constant name="struts.action.excludePattern" value="/data/.*" />
+    <constant name="struts.custom.i18n.resources" value="GlobalResources" />
+
+    <package name="default" extends="struts-default" abstract="true">
+        <interceptors>
+            <!-- Login interceptor -->
+            <interceptor name="login" class="com.quartercode.quartermap.interceptor.LoginInterceptor" />
+
+            <!-- Stack for secured zones (like backends etc.) -->
+            <interceptor-stack name="secureStack">
+                <interceptor-ref name="login" />
+                <interceptor-ref name="paramsPrepareParamsStack" />
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="paramsPrepareParamsStack" />
+
+        <global-results>
+            <!-- Display login page -->
+            <result name="login" type="redirectAction">
+                <param name="actionName">login_input</param>
+                <param name="namespace">/</param>
+            </result>
+            <!-- Display default error page -->
+            <result name="error">/WEB-INF/global/error.jsp</result>
+            <!-- Protect against wrong parameters -->
+            <result name="input">/WEB-INF/global/error.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <!-- Map action cancelling exceptions -->
+            <exception-mapping result="error"
+                exception="com.quartercode.quartermap.exception.CancelWithErrorException" />
+            <exception-mapping result="login"
+                exception="com.quartercode.quartermap.exception.CancelWithLoginException" />
+
+            <!-- Map exceptions produced by non-existing methods (e.g. caused by wildcards) -->
+            <exception-mapping result="error" exception="java.lang.NoSuchMethodException" />
+        </global-exception-mappings>
+    </package>
+
+    <include file="struts/root.xml" />
+    <include file="struts/projects.xml" />
+    <include file="struts/users.xml" />
+    <include file="struts/config.xml" />
+
+    <include file="struts/projects-api.xml" />
+</struts>
