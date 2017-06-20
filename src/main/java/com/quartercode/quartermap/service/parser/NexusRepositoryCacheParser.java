@@ -32,7 +32,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import com.quartercode.quartermap.dto.artifactrepo.Artifact;
@@ -107,28 +106,14 @@ public class NexusRepositoryCacheParser implements RepositoryCacheParser {
                         // Use parent version if no version is available
                         versionString = document.select("project > parent > version").text();
                     }
-                    Version version = parseVersion(versionString);
+                    Version version = parseVersion(versionString, currentUrl);
 
                     // If the version string is invalid, just continue with the next artifact
                     if (version == null) {
                         continue;
                     }
 
-                    // Parse build information
-                    int buildNumber = -1;
-                    String branch = null;
-                    Elements properties = document.select("project > properties");
-                    if (properties.size() == 1) {
-                        for (Element property : properties.get(0).getAllElements()) {
-                            if (property.tagName().equalsIgnoreCase("build.buildNumber") || property.tagName().equalsIgnoreCase("buildNumber")) {
-                                buildNumber = Integer.parseInt(property.text());
-                            } else if (property.tagName().equalsIgnoreCase("build.branch")) {
-                                branch = property.text();
-                            }
-                        }
-                    }
-
-                    Artifact artifact = new Artifact(groupId, artifactId, version, buildNumber, branch);
+                    Artifact artifact = new Artifact(groupId, artifactId, version);
 
                     // Fetch results
                     String currentDir = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1);
@@ -197,7 +182,7 @@ public class NexusRepositoryCacheParser implements RepositoryCacheParser {
     /*
      * Returns null if the supplied version string turns out to be invalid.
      */
-    private Version parseVersion(String versionString) {
+    private Version parseVersion(String versionString, String url) {
 
         try {
             String[] versionParts1 = versionString.split("-");
@@ -224,8 +209,10 @@ public class NexusRepositoryCacheParser implements RepositoryCacheParser {
             }
 
             int channelIteration = 1;
-            if (channel == ReleaseChannel.SNAPSHOT || channel == ReleaseChannel.RELEASE) {
+            if (channel == ReleaseChannel.RELEASE) {
                 channelIteration = -1;
+            } else if (channel == ReleaseChannel.SNAPSHOT) {
+                channelIteration = Integer.parseInt(StringUtils.substringAfterLast(StringUtils.substringBeforeLast(url, "."), "-"));
             } else if (versionParts1.length >= 3) {
                 channelIteration = Integer.parseInt(versionParts1[2]);
             }

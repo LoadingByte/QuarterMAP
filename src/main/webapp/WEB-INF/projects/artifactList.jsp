@@ -112,12 +112,10 @@
                         <li>&gt;&gt;</li>
                     </ul>
                 </display:setProperty>
-                <display:column title="Build" property="buildNumber"
-                    decorator="com.quartercode.quartermap.action.projects.ProjectArtifactListAction$BuildNumberColumnDecorator" />
                 <display:column title="Version" property="version" />
                 <display:column title="Type" property="version"
                     decorator="com.quartercode.quartermap.action.projects.ProjectArtifactListAction$TypeColumnDecorator" />
-                <display:column title="" property="buildNumber"
+                <display:column title="" property="version"
                     decorator="com.quartercode.quartermap.action.projects.ProjectArtifactListAction$DetailsColumnDecorator" />
             </display:table>
         </s:if>

@@ -196,16 +196,6 @@ public class ProjectArtifactListAction extends ActionSupport implements Preparab
 
     }
 
-    public static class BuildNumberColumnDecorator implements DisplaytagColumnDecorator {
-
-        @Override
-        public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException {
-
-            return "#" + columnValue;
-        }
-
-    }
-
     public static class TypeColumnDecorator implements DisplaytagColumnDecorator {
 
         @Override
@@ -232,7 +222,8 @@ public class ProjectArtifactListAction extends ActionSupport implements Preparab
         @Override
         public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException {
 
-            return "<a href=\"artifact?projectId=" + pageContext.getSession().getAttribute("workaround-projectId") + "&build=" + columnValue + "\">Details</a>";
+            Version version = (Version) columnValue;
+            return "<a href=\"artifact?projectId=" + pageContext.getSession().getAttribute("workaround-projectId") + "&uversion=" + version.getUniqueString() + "\">Details</a>";
         }
 
     }

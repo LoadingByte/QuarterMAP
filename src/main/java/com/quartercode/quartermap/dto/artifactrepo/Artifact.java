@@ -31,29 +31,32 @@ public class Artifact implements Comparable<Artifact> {
     private final String                    artifactId;
     @Getter (onMethod = @__ ({ @JSON (serialize = false) }))
     private final Version                   version;
-    @Getter (onMethod = @__ ({ @JSON (name = "version") }))
-    private final String                    versionString;
-
-    @Getter (onMethod = @__ ({ @JSON (name = "build") }))
-    private final int                       buildNumber;
-    private final String                    branch;
 
     private final SortedSet<ArtifactResult> results = new TreeSet<>();
 
-    public Artifact(String groupId, String artifactId, Version version, int buildNumber, String branch) {
+    public Artifact(String groupId, String artifactId, Version version) {
 
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;
-        versionString = version.toString();
-        this.buildNumber = buildNumber;
-        this.branch = branch;
+    }
+
+    @JSON (name = "version")
+    public String getVersionString() {
+
+        return version.toString();
+    }
+
+    @JSON (name = "uversion")
+    public String getUniqueVersionString() {
+
+        return version.getUniqueString();
     }
 
     @Override
     public int compareTo(Artifact o) {
 
-        return Integer.valueOf(buildNumber).compareTo(o.getBuildNumber());
+        return version.compareTo(o.getVersion());
     }
 
 }

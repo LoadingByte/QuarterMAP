@@ -32,10 +32,6 @@
                 <td><s:property value="artifact.version" /></td>
             </tr>
             <tr>
-                <th>Build</th>
-                <td><a href="<s:property value="jenkinsBuildLocation" />" target="_blank">#<s:property value="artifact.buildNumber" /></a></td>
-            </tr>
-            <tr>
                 <th>Type</th>
                 <td><s:if test="%{artifact.version.revision > 0}">
                         <span>Hotfix</span>

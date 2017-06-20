@@ -47,26 +47,37 @@ public class Version implements Comparable<Version> {
                 return Integer.valueOf(minor).compareTo(o.getMinor());
             }
         } else {
-            return Integer.valueOf(major).compareTo(o.getMinor());
+            return Integer.valueOf(major).compareTo(o.getMajor());
         }
     }
 
     @Override
     public String toString() {
 
-        String versionString = toStringWithoutChannel();
+        String versionString = getChannelFreeString();
 
         if (channel != ReleaseChannel.RELEASE) {
             versionString += "-" + channel;
-            if (channel != ReleaseChannel.SNAPSHOT) {
+            if (channel != ReleaseChannel.SNAPSHOT && channelIteration > 0) {
                 versionString += "-" + channelIteration;
             }
         }
 
-        return versionString.toString();
+        return versionString;
     }
 
-    public String toStringWithoutChannel() {
+    public String getUniqueString() {
+
+        String versionString = toString();
+
+        if (channel == ReleaseChannel.SNAPSHOT && channelIteration > 0) {
+            versionString += "-" + channelIteration;
+        }
+
+        return versionString;
+    }
+
+    public String getChannelFreeString() {
 
         return major + "." + minor + "." + revision;
     }

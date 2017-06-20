@@ -18,7 +18,6 @@
 
 package com.quartercode.quartermap.action.projects;
 
-import java.net.URL;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -44,11 +43,10 @@ public class ProjectArtifactAction extends ActionSupport {
     private final ArtifactRepositoryCacheService artifactRepositoryCacheService = new ArtifactRepositoryCacheService();
 
     private String                               projectId;
-    private int                                  build;
+    private String                               uversion;
 
     private Artifact                             artifact;
     private SortedSet<ArtifactResult>            binaries;
-    private URL                                  jenkinsBuildLocation;
 
     @Override
     public String execute() throws Exception {
@@ -66,14 +64,14 @@ public class ProjectArtifactAction extends ActionSupport {
         }
 
         for (Artifact fetchedArtifact : fetchedArtifacts) {
-            if (fetchedArtifact.getBuildNumber() == build) {
+            if (fetchedArtifact.getUniqueVersionString().equals(uversion)) {
                 artifact = fetchedArtifact;
                 break;
             }
         }
 
         if (artifact == null) {
-            // Invalid build
+            // Invalid uversion
             return ERROR;
         }
 
@@ -83,8 +81,6 @@ public class ProjectArtifactAction extends ActionSupport {
                 binaries.add(result);
             }
         }
-
-        jenkinsBuildLocation = new URL(project.getConfiguration().getJenkinsJob() + "/" + artifact.getBuildNumber());
 
         return SUCCESS;
     }
