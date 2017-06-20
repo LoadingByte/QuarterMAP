@@ -1,0 +1,171 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.quartercode</groupId>
+    <artifactId>quartermap</artifactId>
+    <version>0.1.6</version>
+    <packaging>war</packaging>
+
+    <name>QuarterMAP</name>
+    <url>http://quartercode.com/dl</url>
+    <description>A web application for presenting maven artifacts, which are located in a maven repository, to end users in form of a nice download site.</description>
+    <inceptionYear>2014</inceptionYear>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <struts2.version>2.5.10.1</struts2.version>
+    </properties>
+
+    <organization>
+        <name>QuarterCode</name>
+        <url>http://quartercode.com</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <name>LoadingByte</name>
+            <id>loadingbyte</id>
+            <email>loadingbyte@quartercode.com</email>
+            <organization>QuarterCode</organization>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <!--Utility -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.10</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.16</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.3</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <!-- Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>2.3.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Struts 2 -->
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-sitemesh-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-config-browser-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-json-plugin</artifactId>
+            <version>${struts2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>displaytag</groupId>
+            <artifactId>displaytag</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- Persistence -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.5.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-c3p0</artifactId>
+            <version>4.3.5.Final</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- License header -->
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <version>1.10.b1</version>
+                <executions>
+                    <execution>
+                        <id>license-header</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                        <configuration>
+                            <properties>
+                                <name>${project.name}</name>
+                                <organization>${project.organization.name}</organization>
+                                <url>${project.organization.url}</url>
+                                <inceptionYear>${project.inceptionYear}</inceptionYear>
+                            </properties>
+                            <quiet>true</quiet>
+                            <encoding>UTF-8</encoding>
+                            <strictCheck>true</strictCheck>
+                            <header>HEADER.txt</header>
+                            <mapping>
+                                <java>SLASHSTAR_STYLE</java>
+                            </mapping>
+                            <keywords>
+                                <keyword>${project.name}</keyword>
+                                <keyword>license</keyword>
+                            </keywords>
+                            <includes>
+                                <include>src/main/java/**</include>
+                                <include>src/test/java/**</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
