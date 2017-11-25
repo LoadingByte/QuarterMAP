@@ -28,7 +28,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,12 +36,8 @@ import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import com.quartercode.quartermap.dto.artifactrepo.Artifact;
 import com.quartercode.quartermap.dto.artifactrepo.ArtifactRepositoryCache;
-import com.quartercode.quartermap.dto.artifactrepo.ArtifactResult;
-import com.quartercode.quartermap.dto.artifactrepo.Classifier;
-import com.quartercode.quartermap.dto.artifactrepo.ClassifierType;
-import com.quartercode.quartermap.dto.artifactrepo.FileType;
-import com.quartercode.quartermap.dto.artifactrepo.ReleaseChannel;
 import com.quartercode.quartermap.dto.artifactrepo.Version;
+import com.quartercode.quartermap.util.ArtifactUtil;
 
 public class Nexus2RepositoryCacheParser implements RepositoryCacheParser {
 
@@ -101,12 +97,8 @@ public class Nexus2RepositoryCacheParser implements RepositoryCacheParser {
                     String artifactId = document.select("project > artifactId").text();
 
                     // Parse version
-                    String versionString = document.select("project > version").text();
-                    if (versionString.isEmpty()) {
-                        // Use parent version if no version is available
-                        versionString = document.select("project > parent > version").text();
-                    }
-                    Version version = parseVersion(versionString, currentUrl);
+                    String versionString = FilenameUtils.getBaseName(currentUrl);
+                    Version version = ArtifactUtil.parseVersion(versionString);
 
                     // If the version string is invalid, just continue with the next artifact
                     if (version == null) {
@@ -118,29 +110,17 @@ public class Nexus2RepositoryCacheParser implements RepositoryCacheParser {
                     // Fetch results
                     String currentDir = currentUrl.substring(0, currentUrl.lastIndexOf("/") + 1);
                     String currentArtifactFilePrefix = currentUrl.substring(0, currentUrl.lastIndexOf(".pom"));
-                    String currentArtifactFilenamePrefix = StringUtils.substringAfterLast(currentArtifactFilePrefix, "/");
                     for (String link : linkCache.get(currentDir)) {
+                        // Skip the result if it's just a POM, signature, or checksum
                         if (!link.endsWith(".pom") && !link.endsWith(".asc") && !link.endsWith(".md5") && !link.endsWith(".sha1") && link.startsWith(currentArtifactFilePrefix)) {
+                            // Parse the artifact result
+                            URL resultLocation;
                             try {
-                                URL resultLocation = new URL(link);
-                                String resultName = resultLocation.getPath().substring(resultLocation.getPath().lastIndexOf("/") + 1);
-
-                                FileType resultFileType = null;
-                                for (FileType fileType : FileType.values()) {
-                                    if (resultName.toLowerCase().endsWith("." + fileType.getExtension())) {
-                                        resultFileType = fileType;
-                                        break;
-                                    }
-                                }
-
-                                String classifierString = StringUtils.substringBetween(resultName, currentArtifactFilenamePrefix, "." + resultFileType.getExtension());
-                                classifierString = StringUtils.isBlank(classifierString) ? "" : classifierString.substring(1);
-                                Classifier classifier = parseClassifier(classifierString);
-
-                                artifact.getResults().add(new ArtifactResult(resultName, resultLocation, classifier, resultFileType));
+                                resultLocation = new URL(link);
                             } catch (MalformedURLException e) {
                                 throw new RepositoryParseException("Invalid artifact result url '" + link + "'", e);
                             }
+                            artifact.getResults().add(ArtifactUtil.parseArtifactResult(resultLocation, versionString));
                         }
                     }
 
@@ -177,62 +157,6 @@ public class Nexus2RepositoryCacheParser implements RepositoryCacheParser {
                 }
             }
         }
-    }
-
-    /*
-     * Returns null if the supplied version string turns out to be invalid.
-     */
-    private Version parseVersion(String versionString, String url) {
-
-        try {
-            String[] versionParts1 = versionString.split("-");
-
-            int major = 0;
-            int minor = 0;
-            int revision = 0;
-            if (versionParts1.length >= 1) {
-                String[] versionParts2 = versionParts1[0].split("\\.");
-                if (versionParts2.length >= 1) {
-                    major = Integer.parseInt(versionParts2[0]);
-                }
-                if (versionParts2.length >= 2) {
-                    minor = Integer.parseInt(versionParts2[1]);
-                }
-                if (versionParts2.length >= 3) {
-                    revision = Integer.parseInt(versionParts2[2]);
-                }
-            }
-
-            ReleaseChannel channel = ReleaseChannel.RELEASE;
-            if (versionParts1.length >= 2) {
-                channel = ReleaseChannel.valueOf(versionParts1[1].toUpperCase());
-            }
-
-            int channelIteration = 1;
-            if (channel == ReleaseChannel.RELEASE) {
-                channelIteration = -1;
-            } else if (channel == ReleaseChannel.SNAPSHOT) {
-                channelIteration = Integer.parseInt(StringUtils.substringAfterLast(StringUtils.substringBeforeLast(url, "."), "-"));
-            } else if (versionParts1.length >= 3) {
-                channelIteration = Integer.parseInt(versionParts1[2]);
-            }
-
-            return new Version(major, minor, revision, channel, channelIteration);
-        } catch (RuntimeException e) {
-            return null;
-        }
-    }
-
-    private Classifier parseClassifier(String classifierString) {
-
-        ClassifierType classifierType = ClassifierType.BINARY;
-        if (classifierString.equals("sources")) {
-            classifierType = ClassifierType.SOURCES;
-        } else if (classifierString.equals("javadoc")) {
-            classifierType = ClassifierType.JAVADOC;
-        }
-
-        return new Classifier(classifierString, classifierType);
     }
 
 }

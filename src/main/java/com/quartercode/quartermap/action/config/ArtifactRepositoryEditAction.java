@@ -28,6 +28,7 @@ import com.quartercode.quartermap.dto.artifactrepo.ArtifactRepository;
 import com.quartercode.quartermap.exception.CancelWithErrorException;
 import com.quartercode.quartermap.service.ArtifactRepositoryService;
 import com.quartercode.quartermap.service.parser.Nexus2RepositoryCacheParser;
+import com.quartercode.quartermap.service.parser.Nexus3RepositoryCacheParser;
 import com.quartercode.quartermap.service.parser.RepositoryCacheParser;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -56,6 +57,7 @@ public class ArtifactRepositoryEditAction extends ActionSupport implements Prepa
         availableCacheParsers = new LinkedHashMap<>();
         // TODO: Make this dynamic
         availableCacheParsers.put(Nexus2RepositoryCacheParser.class.getName(), Nexus2RepositoryCacheParser.class.getSimpleName());
+        availableCacheParsers.put(Nexus3RepositoryCacheParser.class.getName(), Nexus3RepositoryCacheParser.class.getSimpleName());
 
         repository = artifactRepositoryService.getRepositoryByName(repositoryId);
 
