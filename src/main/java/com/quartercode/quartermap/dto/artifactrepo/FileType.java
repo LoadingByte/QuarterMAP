@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum FileType {
 
-    ZIP ("ZIP", "zip"), TAR_GZ ("TAR.GZ", "tar.gz"), TAR_BZ2 ("TAR.BZ2", "tar.bz2"), TAR ("TAR", "tar"), WAR ("WAR", "war"), JAR ("JAR", "jar");
+    ZIP ("ZIP", "zip"), TAR_GZ ("TAR.GZ", "tar.gz"), TAR_BZ2 ("TAR.BZ2", "tar.bz2"), TAR ("TAR", "tar"), WAR ("WAR", "war"), JAR ("JAR", "jar"), OTHER ("Other", "");
 
     private final String displayName;
     private final String extension;
