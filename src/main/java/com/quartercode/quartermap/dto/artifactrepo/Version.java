@@ -58,20 +58,9 @@ public class Version implements Comparable<Version> {
 
         if (channel != ReleaseChannel.RELEASE) {
             versionString += "-" + channel;
-            if (channel != ReleaseChannel.SNAPSHOT && channelIteration > 0) {
-                versionString += "-" + channelIteration;
+            if (channelIteration > 0) {
+                versionString += "." + channelIteration;
             }
-        }
-
-        return versionString;
-    }
-
-    public String getUniqueString() {
-
-        String versionString = toString();
-
-        if (channel == ReleaseChannel.SNAPSHOT && channelIteration > 0) {
-            versionString += "-" + channelIteration;
         }
 
         return versionString;

@@ -43,7 +43,7 @@ public class ProjectArtifactAction extends ActionSupport {
     private final ArtifactRepositoryCacheService artifactRepositoryCacheService = new ArtifactRepositoryCacheService();
 
     private String                               projectId;
-    private String                               uversion;
+    private String                               version;
 
     private Artifact                             artifact;
     private SortedSet<ArtifactResult>            binaries;
@@ -64,14 +64,14 @@ public class ProjectArtifactAction extends ActionSupport {
         }
 
         for (Artifact fetchedArtifact : fetchedArtifacts) {
-            if (fetchedArtifact.getUniqueVersionString().equals(uversion)) {
+            if (fetchedArtifact.getVersionString().equals(version)) {
                 artifact = fetchedArtifact;
                 break;
             }
         }
 
         if (artifact == null) {
-            // Invalid uversion
+            // Invalid version
             return ERROR;
         }
 

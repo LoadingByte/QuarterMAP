@@ -47,12 +47,6 @@ public class Artifact implements Comparable<Artifact> {
         return version.toString();
     }
 
-    @JSON (name = "uversion")
-    public String getUniqueVersionString() {
-
-        return version.getUniqueString();
-    }
-
     @Override
     public int compareTo(Artifact o) {
 

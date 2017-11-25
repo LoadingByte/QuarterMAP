@@ -27,9 +27,9 @@
             <result type="json">
                 <param name="includeProperties">
                     artifactId,
-                    stable,stable.version,stable.uversion,
-                    latest,latest.version,latest.uversion,
-                    artifacts,artifacts\[\d+\]\.version,artifacts\[\d+\]\.uversion
+                    stable,stable.version,
+                    latest,latest.version,
+                    artifacts,artifacts\[\d+\]\.version
                 </param>
             </result>
         </action>

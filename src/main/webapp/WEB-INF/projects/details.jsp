@@ -29,7 +29,7 @@
         <div class="sidebar">
             <h2 style="margin-top: 0;">Promoted Artifacts</h2>
             <s:if test="%{stable != null}">
-                <s:a action="artifact?projectId=%{projectId}&uversion=%{stable.version.uniqueString}" title="View latest release" cssClass="boxlink green">
+                <s:a action="artifact?projectId=%{projectId}&version=%{stable.version}" title="View latest release" cssClass="boxlink green">
                     <span class="highlighted">Stable (Cycle <s:property value="stable.version.major" />.<s:property
                             value="stable.version.minor" />.x)
                     </span>
@@ -40,7 +40,7 @@
                 </s:a>
             </s:if>
             <s:if test="%{latest != null}">
-                <s:a action="artifact?projectId=%{projectId}&uversion=%{latest.version.uniqueString}" title="View latest preview" cssClass="boxlink red"
+                <s:a action="artifact?projectId=%{projectId}&version=%{latest.version}" title="View latest preview" cssClass="boxlink red"
                     cssStyle="margin-top: 1.5em;">
                     <span class="highlighted">Latest (Cycle <s:property value="latest.version.major" />.<s:property
                             value="latest.version.minor" />.x)

@@ -41,7 +41,7 @@ public class ProjectArtifactAPI extends ActionSupport {
     private String                               error;
 
     private String                               projectId;
-    private String                               uversion;
+    private String                               version;
 
     private Artifact                             artifact;
 
@@ -63,15 +63,15 @@ public class ProjectArtifactAPI extends ActionSupport {
         }
 
         for (Artifact fetchedArtifact : fetchedArtifacts) {
-            if (fetchedArtifact.getUniqueVersionString().equals(uversion)) {
+            if (fetchedArtifact.getVersionString().equals(version)) {
                 artifact = fetchedArtifact;
                 break;
             }
         }
 
         if (artifact == null) {
-            // Invalid uversion
-            error = "invalid-uversion";
+            // Invalid version
+            error = "invalid-version";
             return ERROR;
         }
 

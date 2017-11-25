@@ -220,7 +220,7 @@ public class ProjectArtifactListAction extends ActionSupport implements Preparab
         public Object decorate(Object columnValue, PageContext pageContext, MediaTypeEnum media) throws DecoratorException {
 
             Version version = (Version) columnValue;
-            return "<a href=\"artifact?projectId=" + pageContext.getSession().getAttribute("workaround-projectId") + "&uversion=" + version.getUniqueString() + "\">Details</a>";
+            return "<a href=\"artifact?projectId=" + pageContext.getSession().getAttribute("workaround-projectId") + "&version=" + version + "\">Details</a>";
         }
 
     }
