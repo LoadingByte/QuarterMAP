@@ -43,11 +43,11 @@ import com.quartercode.quartermap.dto.artifactrepo.FileType;
 import com.quartercode.quartermap.dto.artifactrepo.ReleaseChannel;
 import com.quartercode.quartermap.dto.artifactrepo.Version;
 
-public class NexusRepositoryCacheParser implements RepositoryCacheParser {
+public class Nexus2RepositoryCacheParser implements RepositoryCacheParser {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(NexusRepositoryCacheParser.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Nexus2RepositoryCacheParser.class);
 
-    public NexusRepositoryCacheParser() {
+    public Nexus2RepositoryCacheParser() {
 
     }
 
