@@ -25,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ReleaseChannel {
 
-    SNAPSHOT ("Snapshot"), ALPHA ("Alpha"), BETA ("Beta"), RELEASE ("Release");
+    SNAPSHOT ("Snapshot"), ALPHA ("Alpha"), BETA ("Beta"), RC ("Release Candidate"), RELEASE ("Release");
 
     private final String displayName;
 
