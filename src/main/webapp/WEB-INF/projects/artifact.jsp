@@ -35,9 +35,7 @@
                 <th>Type</th>
                 <td><s:if test="%{artifact.version.revision > 0}">
                         <span>Hotfix</span>
-                    </s:if> <s:property value="artifact.version.channel.displayName" /> <s:if test="%{artifact.version.channelIteration > 0}">
-                        <s:property value="artifact.version.channelIteration" />
-                    </s:if></td>
+                    </s:if> <s:property value="artifact.version.channel.displayName" /></td>
             </tr>
             <tr>
                 <th>Results</th>

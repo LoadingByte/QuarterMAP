@@ -208,9 +208,6 @@ public class ProjectArtifactListAction extends ActionSupport implements Preparab
                 column += "Hotfix ";
             }
             column += version.getChannel().getDisplayName();
-            if (version.getChannelIteration() > 0) {
-                column += " " + version.getChannelIteration();
-            }
 
             return column;
         }
