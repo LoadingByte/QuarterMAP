@@ -26,8 +26,7 @@ import lombok.Data;
 public class ProjectConfiguration {
 
     private URL             sourceRepository;
-    private URL             jenkinsJob;
-    private URL             sonarJob;
+    private URL             continuousIntegrationJob;
     @Embedded
     private ArtifactMapping artifact = new ArtifactMapping();
 

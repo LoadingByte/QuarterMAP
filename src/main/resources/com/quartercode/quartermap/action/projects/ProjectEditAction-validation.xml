@@ -21,19 +21,13 @@
 
     <field name="newSourceRepository">
         <field-validator type="requiredstring">
-            <message>Source Repository is required</message>
+            <message>Source repository is required</message>
         </field-validator>
     </field>
 
-    <field name="newJenkinsJob">
+    <field name="newContinuousIntegrationJob">
         <field-validator type="requiredstring">
-            <message>Jenkins Job is required</message>
-        </field-validator>
-    </field>
-
-    <field name="newSonarJob">
-        <field-validator type="requiredstring">
-            <message>Sonar Job is required</message>
+            <message>Continuous integration job is required</message>
         </field-validator>
     </field>
 </validators>

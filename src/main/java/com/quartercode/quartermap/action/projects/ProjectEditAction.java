@@ -42,8 +42,7 @@ public class ProjectEditAction extends ActionSupport implements Preparable {
     private String               oldName;
 
     private String               newSourceRepository;
-    private String               newJenkinsJob;
-    private String               newSonarJob;
+    private String               newContinuousIntegrationJob;
 
     @Override
     public void prepare() throws Exception {
@@ -66,19 +65,13 @@ public class ProjectEditAction extends ActionSupport implements Preparable {
         try {
             new URL(newSourceRepository);
         } catch (MalformedURLException e) {
-            addFieldError("newSourceRepository", "Source Repository is invalid");
+            addFieldError("newSourceRepository", "Source repository is invalid");
         }
 
         try {
-            new URL(newJenkinsJob);
+            new URL(newContinuousIntegrationJob);
         } catch (MalformedURLException e) {
-            addFieldError("newJenkins", "Jenkins URL is invalid");
-        }
-
-        try {
-            new URL(newSonarJob);
-        } catch (MalformedURLException e) {
-            addFieldError("newSonar", "Sonar URL is invalid");
+            addFieldError("newContinuousIntegrationJob", "Continuous integration job URL is invalid");
         }
     }
 
@@ -92,8 +85,7 @@ public class ProjectEditAction extends ActionSupport implements Preparable {
 
         // Workaround because struts 2 cannot parse urls at the moment
         project.getConfiguration().setSourceRepository(new URL(newSourceRepository));
-        project.getConfiguration().setJenkinsJob(new URL(newJenkinsJob));
-        project.getConfiguration().setSonarJob(new URL(newSonarJob));
+        project.getConfiguration().setContinuousIntegrationJob(new URL(newContinuousIntegrationJob));
 
         projectService.updateProject(project);
 

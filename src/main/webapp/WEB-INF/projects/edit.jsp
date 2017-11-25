@@ -15,9 +15,8 @@
         <tr>
             <td colspan="2"><hr /></td>
         </tr>
-        <s:textfield key="newSourceRepository" value="%{project.configuration.sourceRepository}" label="Source Repository" />
-        <s:textfield key="newJenkinsJob" value="%{project.configuration.jenkinsJob}" label="Jenkins URL" />
-        <s:textfield key="newSonarJob" value="%{project.configuration.sonarJob}" label="Sonar URL" />
+        <s:textfield key="newSourceRepository" value="%{project.configuration.sourceRepository}" label="Source repository" />
+        <s:textfield key="newContinuousIntegrationJob" value="%{project.configuration.continuousIntegrationJob}" label="Continuous integration job" />
         <s:submit value="Save Changes" />
     </s:form>
 </body>

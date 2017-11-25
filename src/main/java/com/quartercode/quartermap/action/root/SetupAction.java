@@ -77,8 +77,7 @@ public class SetupAction extends DynamicRedirectAction {
             project.getConfiguration().getArtifact().setGroupId("com.quartercode");
             project.getConfiguration().getArtifact().setArtifactId("quarterbukkit-package");
             project.getConfiguration().setSourceRepository(new URL("https://github.com/QuarterCode/QuarterBukkit"));
-            project.getConfiguration().setJenkinsJob(new URL("http://ci.quartercode.com/job/QuarterBukkit"));
-            project.getConfiguration().setSonarJob(new URL("http://quartercode.com/sonar/dashboard/index/com.quartercode:quarterbukkit"));
+            project.getConfiguration().setContinuousIntegrationJob(new URL("http://ci.quartercode.com/job/QuarterBukkit"));
 
             projectService.addProject(project);
 

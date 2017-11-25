@@ -11,16 +11,12 @@
     <div class="center">
         <table>
             <tr>
-                <th>Source Repository</th>
-                <td><a href="<s:property value="project.configuration.sourceRepository" />" target="_blank">Git Repository</a></td>
+                <th>Source code</th>
+                <td><a href="<s:property value="project.configuration.sourceRepository" />" target="_blank">Repository</a></td>
             </tr>
             <tr>
-                <th>Continous Integration</th>
-                <td><a href="<s:property value="project.configuration.jenkinsJob" />" target="_blank">Jenkins Job</a></td>
-            </tr>
-            <tr>
-                <th>Codemetrics</th>
-                <td><a href="<s:property value="project.configuration.sonarJob" />" target="_blank">Sonar Job</a></td>
+                <th>Continuous integration</th>
+                <td><a href="<s:property value="project.configuration.continuousIntegrationJob" />" target="_blank">Job</a></td>
             </tr>
         </table>
     </div>
