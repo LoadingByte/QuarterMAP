@@ -22,7 +22,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 @Entity
@@ -33,8 +35,18 @@ public class Project implements Comparable<Project> {
     private int                  id;
 
     private String               name;
+    @Getter (AccessLevel.NONE)
     @Embedded
-    private ProjectConfiguration configuration = new ProjectConfiguration();
+    private ProjectConfiguration configuration;
+
+    public ProjectConfiguration getConfiguration() {
+
+        // Workaround for Hibernate in order to keep it from nulling this embedded object
+        if (configuration == null) {
+            configuration = new ProjectConfiguration();
+        }
+        return configuration;
+    }
 
     @Override
     public int compareTo(Project o) {

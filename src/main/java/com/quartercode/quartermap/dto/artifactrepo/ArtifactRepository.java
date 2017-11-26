@@ -22,7 +22,9 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 @Entity
@@ -33,8 +35,18 @@ public class ArtifactRepository implements Comparable<ArtifactRepository> {
     private int                             id;
 
     private String                          name;
+    @Getter (AccessLevel.NONE)
     @Embedded
-    private ArtifactRepositoryConfiguration configuration = new ArtifactRepositoryConfiguration();
+    private ArtifactRepositoryConfiguration configuration;
+
+    public ArtifactRepositoryConfiguration getConfiguration() {
+
+        // Workaround for Hibernate in order to keep it from nulling this embedded object
+        if (configuration == null) {
+            configuration = new ArtifactRepositoryConfiguration();
+        }
+        return configuration;
+    }
 
     @Override
     public int compareTo(ArtifactRepository o) {

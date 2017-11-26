@@ -20,14 +20,26 @@ package com.quartercode.quartermap.dto.project;
 
 import java.net.URL;
 import javax.persistence.Embedded;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class ProjectConfiguration {
 
     private URL             sourceRepository;
     private URL             continuousIntegrationJob;
+    @Getter (AccessLevel.NONE)
     @Embedded
-    private ArtifactMapping artifact = new ArtifactMapping();
+    private ArtifactMapping artifact;
+
+    public ArtifactMapping getArtifact() {
+
+        // Workaround for Hibernate in order to keep it from nulling this embedded object
+        if (artifact == null) {
+            artifact = new ArtifactMapping();
+        }
+        return artifact;
+    }
 
 }
