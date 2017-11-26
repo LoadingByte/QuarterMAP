@@ -67,7 +67,10 @@ public class ArtifactRepositoryEditAction extends ActionSupport implements Prepa
         }
 
         oldName = repository.getName();
-        cacheParser = repository.getConfiguration().getCacheParser().getName();
+
+        if (repository.getConfiguration().getCacheParser() != null) {
+            cacheParser = repository.getConfiguration().getCacheParser().getName();
+        }
     }
 
     @Override

@@ -28,4 +28,9 @@ public class ArtifactRepositoryConfiguration {
     private URL                                    location;
     private Class<? extends RepositoryCacheParser> cacheParser;
 
+    public String getCacheParserName() {
+
+        return cacheParser == null ? null : cacheParser.getSimpleName();
+    }
+
 }

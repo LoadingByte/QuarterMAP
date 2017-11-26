@@ -18,7 +18,7 @@
             <tr>
                 <td><s:property value="name" /></td>
                 <td><s:property value="configuration.location.host" /></td>
-                <td><s:property value="configuration.cacheParser.simpleName" /></td>
+                <td><s:property value="configuration.cacheParserName" /></td>
                 <td><s:a action="artifactrepoEdit_input?repositoryId=%{name}">Edit</s:a></td>
                 <td><s:a action="artifactrepoRemove?repositoryId=%{name}">Remove</s:a></td>
             </tr>

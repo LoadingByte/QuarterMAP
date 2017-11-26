@@ -30,7 +30,7 @@ import com.quartercode.quartermap.service.ArtifactRepositoryService;
 import com.quartercode.quartermap.service.ConfigService;
 import com.quartercode.quartermap.service.ProjectService;
 import com.quartercode.quartermap.service.UserService;
-import com.quartercode.quartermap.service.parser.NexusRepositoryCacheParser;
+import com.quartercode.quartermap.service.parser.Nexus3RepositoryCacheParser;
 import com.quartercode.quartermap.util.HashUtil;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -77,7 +77,7 @@ public class SetupAction extends DynamicRedirectAction {
             project.getConfiguration().getArtifact().setGroupId("com.quartercode");
             project.getConfiguration().getArtifact().setArtifactId("quarterbukkit-package");
             project.getConfiguration().setSourceRepository(new URL("https://github.com/QuarterCode/QuarterBukkit"));
-            project.getConfiguration().setContinuousIntegrationJob(new URL("http://ci.quartercode.com/job/QuarterBukkit"));
+            project.getConfiguration().setContinuousIntegrationJob(new URL("https://ci.quartercode.com/job/QuarterBukkit"));
 
             projectService.addProject(project);
 
@@ -86,8 +86,8 @@ public class SetupAction extends DynamicRedirectAction {
             ArtifactRepository repository = new ArtifactRepository();
 
             repository.setName("QuarterCode Public");
-            repository.getConfiguration().setLocation(new URL("http://repo.quartercode.com/content/groups/public/"));
-            repository.getConfiguration().setCacheParser(NexusRepositoryCacheParser.class);
+            repository.getConfiguration().setLocation(new URL("https://repo.quartercode.com/repository/maven-public/"));
+            repository.getConfiguration().setCacheParser(Nexus3RepositoryCacheParser.class);
 
             artifactRepositoryService.addRepository(repository);
         }
